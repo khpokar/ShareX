@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Sharing App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #shareLink {
+            margin-top: 20px;
+        }
+        #shareLink a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #shareLink a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Code Share</h1>
+    <form id="codeForm" onsubmit="event.preventDefault(); shareCode()">
+        <textarea id="code" name="code" rows="10" cols="50" placeholder="Paste your code here..."></textarea>
+        <br>
+        <input type="submit" value="Share">
+    </form>
+    <div id="shareLink"></div>
+
+    <script>
+        async function shareCode() {
+            const code = document.getElementById('code').value;
+            const response = await fetch('/share', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code })
+            });
+            const data = await response.json();
+            const shareId = data['share_id'];
+            const shareLink = window.location.href + 'view/' + shareId;
+            document.getElementById('shareLink').innerHTML = 'Shareable link: <a href="' + shareLink + '">' + shareLink + '</a>';
+        }
+    </script>
+</body>
+</html>

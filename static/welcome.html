@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ShareX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #30353E;
+            color: rgb(255, 255, 255); 
+        }
+        .container {
+            margin-top: 20%;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #ced1d7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to ShareX</h1>
+        <button class="btn" onclick="redirectToMain()">Start ShareX</button>
+    </div>
+
+    <script>
+        function redirectToMain() {
+            const userId = generateUniqueId();
+            window.location.href = `index.html?userId=${userId}`;
+        }
+
+        function generateUniqueId() {
+            return Math.floor(Math.random() * 10000);
+        }
+    </script>
+</body>
+</html>
